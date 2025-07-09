@@ -95,7 +95,8 @@ async function displayAlbums() {
                                 stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
                         </svg>
                     </div>
-                    <img id="song-cover" src="/songs/${folder}/cover.jpeg" alt="img1" onerror="this.onerror=null; this.src='/songs/${folder}/cover.jpg';">
+                   <img id="song-cover" src="songs/${folder}/cover.jpeg" alt="img1" onerror="this.onerror=null; this.src='songs/${folder}/cover.jpg';">
+
                     <h2>${meta.title}</h2>
                     <p>${meta.description}</p>
                 </div>`;
