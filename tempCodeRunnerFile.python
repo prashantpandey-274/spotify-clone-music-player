@@ -1,0 +1,70 @@
+import pygame
+import sys
+
+# Initialize pygame
+pygame.init()
+
+# Screen dimensions
+WIDTH, HEIGHT = 600, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Rubik's Cube Simulator")
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+BLUE = (0, 0, 255)
+GREEN = (0, 255, 0)
+YELLOW = (255, 255, 0)
+ORANGE = (255, 165, 0)
+COLORS = [WHITE, RED, BLUE, GREEN, YELLOW, ORANGE]
+
+# Cube dimensions
+CUBE_SIZE = 100
+MARGIN = 10
+
+# Rubik's Cube structure (6 faces, 3x3 grid each)
+cube = [[color for _ in range(3) for _ in range(3)] for color in COLORS]
+
+
+def draw_face(face, x, y):
+    """Draw a single face of the cube."""
+    for i in range(3):
+        for j in range(3):
+            rect = pygame.Rect(x + j * (CUBE_SIZE + MARGIN), y + i * (CUBE_SIZE + MARGIN), CUBE_SIZE, CUBE_SIZE)
+            pygame.draw.rect(screen, face[i * 3 + j], rect)
+            pygame.draw.rect(screen, BLACK, rect, 2)
+
+
+def draw_cube():
+    """Draw the entire cube in a 2D layout."""
+    screen.fill(BLACK)
+    # Top face
+    draw_face(cube[0], WIDTH // 2 - 1.5 * (CUBE_SIZE + MARGIN), HEIGHT // 6)
+    # Left, Front, Right faces
+    draw_face(cube[1], WIDTH // 2 - 4.5 * (CUBE_SIZE + MARGIN), HEIGHT // 2)
+    draw_face(cube[2], WIDTH // 2 - 1.5 * (CUBE_SIZE + MARGIN), HEIGHT // 2)
+    draw_face(cube[3], WIDTH // 2 + 1.5 * (CUBE_SIZE + MARGIN), HEIGHT // 2)
+    # Bottom face
+    draw_face(cube[4], WIDTH // 2 - 1.5 * (CUBE_SIZE + MARGIN), HEIGHT // 1.2)
+    # Back face
+    draw_face(cube[5], WIDTH // 2 + 4.5 * (CUBE_SIZE + MARGIN), HEIGHT // 2)
+
+
+# Main game loop
+def main():
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        draw_cube()
+        pygame.display.flip()
+
+    pygame.quit()
+    sys.exit()
+
+
+if _name_ == "_main_":
+    main()
